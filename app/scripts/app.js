@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('sparApp', [
-  'ngRoute'
+  'ngRoute',
+  'restangular'
 ])
   .config(function ($routeProvider) {
     $routeProvider
