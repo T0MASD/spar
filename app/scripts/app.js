@@ -10,6 +10,10 @@ angular.module('sparApp', [
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
+      .when('/projects', {
+        templateUrl: 'views/projects.html',
+        controller: 'ProjectsCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
