@@ -32,6 +32,24 @@ module.exports = function(config) {
     // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
     logLevel: config.LOG_INFO,
 
+    // coverage reporter generates the coverage
+    reporters: ['progress', 'coverage'],
+
+    preprocessors: {
+      // source files, that you wanna generate coverage for
+      // do not include tests or libraries
+      // (these files will be instrumented by Istanbul)
+      'app/scripts/*.js': ['coverage'],
+      'app/scripts/**/*.js': ['coverage']
+    },
+
+    coverageReporter: {
+      reporters:[
+        {type: 'html', dir:'coverage/'},
+        {type: 'teamcity'},
+        {type: 'text-summary'}
+      ],      
+    },    
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: false,
