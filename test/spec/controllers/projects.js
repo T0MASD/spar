@@ -17,6 +17,10 @@ describe('Controller: ProjectsCtrl', function () {
     $httpBackend.when('GET', 'api/projects').respond(projectsResponse);
     scope = $injector.get('$rootScope');
     Restangular = $injector.get('Restangular');
+
+    Restangular.setBaseUrl('api');
+    Restangular.setDefaultRequestParams({});
+    
     $controller = $injector.get('$controller');
     ProjectsCtrl = $controller('ProjectsCtrl', { $scope: scope });
   }));
@@ -36,6 +40,34 @@ describe('Controller: ProjectsCtrl', function () {
     var projects = scope.projects;
     $httpBackend.flush();
     expect(Restangular.stripRestangular(projects)).toEqual(projectsResponse);
+  });
+
+});
+
+
+describe('Controller: ProjectEditCtrl', function () {
+
+  // load the controller's module
+  beforeEach(module('sparApp'));
+
+  var ProjectEditCtrl, scope, $controller, Restangular, myProject;
+  
+  //Initialize the controller and a mock scope
+  beforeEach(inject(function($injector) {
+    myProject = {id:'4', name:'Project 1'};
+    scope = $injector.get('$rootScope');
+    Restangular = $injector.get('Restangular');
+    $controller = $injector.get('$controller');
+    ProjectEditCtrl = $controller('ProjectEditCtrl', {
+      $scope: scope,
+      project: myProject
+    });
+
+  }));
+
+
+  it ('should expect get api/projects', function () {
+    expect(Restangular.stripRestangular(scope.project)).toEqual(myProject);
   });
 
 });

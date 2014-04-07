@@ -22,5 +22,9 @@ describe('Service: Projectservice', function () {
     expect(!!Projectservice.getProjects).toBe(true);
   });
 
+  it('Projectservice.getProject() is defined', function () {
+    expect(!!Projectservice.getProjects).toBe(true);
+  });
+
 
 });
