@@ -50,13 +50,19 @@ describe('Controller: ProjectEditCtrl', function () {
   // load the controller's module
   beforeEach(module('sparApp'));
 
-  var ProjectEditCtrl, scope, $controller, Restangular, myProject;
+  var ProjectEditCtrl, scope, $controller, Restangular, myProject, $httpBackend;
   
   //Initialize the controller and a mock scope
   beforeEach(inject(function($injector) {
-    myProject = {id:'4', name:'Project 1'};
+    myProject = {_id:{$oid:'123'}, name:'Project 1', route:'projects'};
+    // set restangular route for the project
+    myProject.route = 'projects';
     scope = $injector.get('$rootScope');
     Restangular = $injector.get('Restangular');
+    Restangular.setBaseUrl('api');
+    Restangular.setDefaultRequestParams({});
+    $httpBackend = $injector.get('$httpBackend');
+    $httpBackend.when('PUT', 'api/projects/123').respond(scope.project);
     $controller = $injector.get('$controller');
     ProjectEditCtrl = $controller('ProjectEditCtrl', {
       $scope: scope,
@@ -65,9 +71,24 @@ describe('Controller: ProjectEditCtrl', function () {
 
   }));
 
-
-  it ('should expect get api/projects', function () {
-    expect(Restangular.stripRestangular(scope.project)).toEqual(myProject);
+  //call each test case
+  afterEach(function () {
+    $httpBackend.verifyNoOutstandingExpectation();
+    $httpBackend.verifyNoOutstandingRequest();
   });
+
+  // tests
+  it ('should expect get api/projects', function () {
+    expect(Restangular.stripRestangular(scope.project)).toEqual(Restangular.stripRestangular(myProject));
+  });
+
+  it ('should expect project to do PUT on save', function () {
+    scope.project.name = 'Updated Project 1';
+    scope.save();
+    $httpBackend.expectPUT('api/projects/123');
+    $httpBackend.flush();
+    expect(Restangular.stripRestangular(scope.project)).toEqual({ _id : { $oid : '123' }, name : 'Updated Project 1' });
+  });
+
 
 });

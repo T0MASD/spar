@@ -10,7 +10,12 @@ angular.module('sparApp')
   .controller('ProjectEditCtrl', function ($scope, $location, Projectservice, project, Restangular) {
     var original = project;
     $scope.project = Restangular.copy(original);
-    // var projects = Projectservice.getProjects().$object;
-    // $scope.projects = projects;
+
+    $scope.save = function() {
+      $scope.project.put().then(function() {
+        $location.path('/projects');
+      });
+    };
+
   });
 

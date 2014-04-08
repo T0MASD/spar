@@ -36,9 +36,8 @@ angular.module('sparApp', [
       id: '_id.$oid'
     });
     
-    RestangularProvider.setRequestInterceptor(function(elem, operation, what) {
+    RestangularProvider.setRequestInterceptor(function(elem, operation) {
       if (operation === 'put') {
-        console.log('Running put on '+what);
         elem._id = undefined;
         return elem;
       }
