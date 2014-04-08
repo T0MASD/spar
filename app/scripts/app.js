@@ -29,19 +29,20 @@ angular.module('sparApp', [
       });
 
     // restangular config
-    RestangularProvider.setBaseUrl('https://api.mongolab.com/api/1/databases/angularjs/collections');
-    RestangularProvider.setDefaultRequestParams({ apiKey: '4f847ad3e4b08a2eed5f3b54' });
+    RestangularProvider.setBaseUrl('https://api.mongolab.com/api/1/databases/spar/collections');
+    RestangularProvider.setDefaultRequestParams({ apiKey: '1gBZiz7sjognilZY3t2MreqUHUCO4Qid' });
+
     RestangularProvider.setRestangularFields({
       id: '_id.$oid'
     });
     
-    // RestangularProvider.setRequestInterceptor(function(elem, operation, what) {
-    //   if (operation === 'put') {
-    //     console.log('Running put on '+what);
-    //     elem._id = undefined;
-    //     return elem;
-    //   }
-    //   return elem;
-    // });
+    RestangularProvider.setRequestInterceptor(function(elem, operation, what) {
+      if (operation === 'put') {
+        console.log('Running put on '+what);
+        elem._id = undefined;
+        return elem;
+      }
+      return elem;
+    });
 
   });
