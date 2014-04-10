@@ -63,6 +63,7 @@ describe('Controller: ProjectEditCtrl', function () {
     Restangular.setDefaultRequestParams({});
     $httpBackend = $injector.get('$httpBackend');
     $httpBackend.when('PUT', 'api/projects/123').respond(scope.project);
+    $httpBackend.when('DELETE', 'api/projects/123').respond(scope.project);
     $controller = $injector.get('$controller');
     ProjectEditCtrl = $controller('ProjectEditCtrl', {
       $scope: scope,
@@ -90,6 +91,11 @@ describe('Controller: ProjectEditCtrl', function () {
     expect(Restangular.stripRestangular(scope.project)).toEqual({ _id : { $oid : '123' }, name : 'Updated Project 1' });
   });
 
+  it ('should expect project to do DELETE on destroy', function () {
+    scope.destroy();
+    $httpBackend.expectDELETE('api/projects/123');
+    $httpBackend.flush();
+  });
 
 });
 

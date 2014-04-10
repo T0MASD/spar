@@ -8,11 +8,16 @@ angular.module('sparApp')
   })
   // edit project
   .controller('ProjectEditCtrl', function ($scope, $location, Projectservice, project, Restangular) {
-    var original = project;
-    $scope.project = Restangular.copy(original);
+    $scope.project = Restangular.copy(project);
 
     $scope.save = function() {
       $scope.project.put().then(function() {
+        $location.path('/projects');
+      });
+    };
+
+    $scope.destroy = function() {
+      $scope.project.remove().then(function() {
         $location.path('/projects');
       });
     };
