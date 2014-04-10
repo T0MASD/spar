@@ -92,3 +92,45 @@ describe('Controller: ProjectEditCtrl', function () {
 
 
 });
+
+
+describe('Controller: ProjectCreateCtrl', function () {
+
+  // load the controller's module
+  beforeEach(module('sparApp'));
+
+  var ProjectCreateCtrl, scope, $controller, Restangular, $httpBackend;
+  
+  //Initialize the controller and a mock scope
+  beforeEach(inject(function($injector) {
+    scope = $injector.get('$rootScope');
+    Restangular = $injector.get('Restangular');
+    Restangular.setBaseUrl('api');
+    Restangular.setDefaultRequestParams({});
+    $httpBackend = $injector.get('$httpBackend');
+    $httpBackend.when('POST', 'api/projects').respond({_id:{$oid:'123'}, name:'Project 1'});
+    $controller = $injector.get('$controller');
+    ProjectCreateCtrl = $controller('ProjectCreateCtrl', {
+      $scope: scope,
+    });
+
+  }));
+
+  //call each test case
+  afterEach(function () {
+    $httpBackend.verifyNoOutstandingExpectation();
+    $httpBackend.verifyNoOutstandingRequest();
+  });
+
+  // tests
+
+  it ('should expect project to do POST on save', function () {
+    scope.project = {_id:{$oid:'123'}, name:'Project 1'};
+    scope.save();
+    $httpBackend.expectPOST('api/projects');
+    $httpBackend.flush();
+    expect(Restangular.stripRestangular(scope.createdProject)).toEqual(scope.project);
+  });
+
+
+});
