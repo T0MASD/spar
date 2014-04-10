@@ -17,5 +17,9 @@ angular.module('sparApp')
       });
     };
 
+  })
+  .controller('ProjectCreateCtrl', function () {
+    // TDB
+
   });
 

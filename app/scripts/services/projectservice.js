@@ -11,5 +11,8 @@ angular.module('sparApp')
     getProject: function(projectId) {
       return Restangular.one('projects', projectId).get();
     },
+    createProject: function() {
+        //TBD
+    },
   };
 });

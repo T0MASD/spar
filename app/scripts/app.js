@@ -24,6 +24,10 @@ angular.module('sparApp', [
           }
         }
       })
+      .when('/projects/new', {
+        templateUrl: 'views/projectedit.html',
+        controller: 'ProjectCreateCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
