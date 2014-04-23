@@ -23,6 +23,7 @@ angular.module('sparApp')
     };
 
   })
+  // create project
   .controller('ProjectCreateCtrl', function ($scope, $location, Projectservice) {
     $scope.save = function() {
       Projectservice.createProject($scope.project).then(function(project) {
