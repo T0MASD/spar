@@ -31,5 +31,12 @@ angular.module('sparApp')
         $location.path('/projects');
       });
     };
+  })
+  // show project
+  .controller('ProjectShowCtrl', function ($scope, $location, Projectservice, project, Restangular) {
+    $scope.project = Restangular.copy(project);
+    $scope.teams = Projectservice.listTeams($scope.project).$object;
+    //.then(function(teams) {
+    //});
   });
 

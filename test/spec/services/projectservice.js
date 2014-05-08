@@ -30,5 +30,9 @@ describe('Service: Projectservice', function () {
     expect(!!Projectservice.createProject).toBe(true);
   });
 
+  it('Projectservice.listTeams() is defined', function () {
+    expect(!!Projectservice.listTeams).toBe(true);
+  });
+
 
 });

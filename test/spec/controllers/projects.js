@@ -138,5 +138,54 @@ describe('Controller: ProjectCreateCtrl', function () {
     expect(Restangular.stripRestangular(scope.createdProject)).toEqual(scope.project);
   });
 
+});
+
+describe('Controller: ProjectShowCtrl', function () {
+
+  // load the controller's module
+  beforeEach(module('sparApp'));
+
+  var ProjectShowCtrl, scope, $controller, Restangular, myProject, myTeams, $httpBackend;
+  
+  //Initialize the controller and a mock scope
+  beforeEach(inject(function($injector) {
+    myProject = {_id:{$oid:'123'}, name:'Project 1', route:'projects'};
+    myTeams = [];
+    scope = $injector.get('$rootScope');
+    Restangular = $injector.get('Restangular');
+    Restangular.setBaseUrl('api');
+    Restangular.setDefaultRequestParams({});
+    $httpBackend = $injector.get('$httpBackend');
+    $httpBackend.when('GET', 'api/projects/123/teams').respond(myTeams);
+    $controller = $injector.get('$controller');
+    ProjectShowCtrl = $controller('ProjectShowCtrl', {
+      $scope: scope,
+      project: myProject
+    });
+
+  }));
+
+  //call each test case
+  afterEach(function () {
+    $httpBackend.verifyNoOutstandingExpectation();
+    $httpBackend.verifyNoOutstandingRequest();
+  });
+
+  // tests
+  it ('should expect project object to be passed in and be restangular', function () {
+    expect(Restangular.stripRestangular(scope.project)).toEqual(Restangular.stripRestangular(myProject));
+    $httpBackend.flush();
+  });
+
+  it ('should expect get api/projects/123/teams', function () {
+    $httpBackend.expectGET('api/projects/123/teams');
+    $httpBackend.flush();
+  });
+
+  it('should expect response from scope.teams to be same as myTeams', function () {
+    var teams = scope.teams;
+    $httpBackend.flush();
+    expect(Restangular.stripRestangular(teams)).toEqual(myTeams);
+  });
 
 });

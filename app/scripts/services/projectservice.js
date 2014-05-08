@@ -14,5 +14,9 @@ angular.module('sparApp')
     createProject: function(project) {
       return Restangular.all('projects').post(project);
     },
+    listTeams: function(project) {
+      // get teams from /projects/536997c9f7890c40770656a6/teams
+      return project.all('teams').getList();
+    },
   };
 });

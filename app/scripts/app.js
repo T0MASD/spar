@@ -24,6 +24,15 @@ angular.module('sparApp', [
           }
         }
       })
+      .when('/projects/show/:projectId', {
+        templateUrl: 'views/projectshow.html',
+        controller: 'ProjectShowCtrl',
+        resolve: {
+          project: function(Projectservice, $route){
+            return Projectservice.getProject($route.current.params.projectId);
+          }
+        }
+      })
       .when('/projects/new', {
         templateUrl: 'views/projectedit.html',
         controller: 'ProjectCreateCtrl'
@@ -33,8 +42,11 @@ angular.module('sparApp', [
       });
 
     // restangular config
-    RestangularProvider.setBaseUrl('https://api.mongolab.com/api/1/databases/spar/collections');
-    RestangularProvider.setDefaultRequestParams({ apiKey: '1gBZiz7sjognilZY3t2MreqUHUCO4Qid' });
+    //var baseUrl = 'https://api.mongolab.com/api/1/databases/spar/collections';
+    var baseUrl = 'http://0.0.0.0:6543';
+    RestangularProvider.setBaseUrl(baseUrl);
+    // var key = '1gBZiz7sjognilZY3t2MreqUHUCO4Qid';
+    // RestangularProvider.setDefaultRequestParams({ apiKey: key });
 
     RestangularProvider.setRestangularFields({
       id: '_id.$oid'
