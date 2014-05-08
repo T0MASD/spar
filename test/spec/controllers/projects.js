@@ -174,19 +174,12 @@ describe('Controller: ProjectShowCtrl', function () {
   });
 
   // tests
-  it ('should expect project object to be passed in and be restangular', function () {
-    expect(Restangular.stripRestangular(scope.project)).toEqual(Restangular.stripRestangular(myProject));
-    $httpBackend.flush();
-  });
-
-  it ('should expect get api/projects/123/teams', function () {
+  it ('on load should expect get api/projects/123/teams', function () {
     $httpBackend.expectGET('api/projects/123/teams');
-    $httpBackend.flush();
-  });
-
-  it('should expect response from scope.teams to be same as myTeams', function () {
     var teams = scope.teams;
+    var project = scope.project;
     $httpBackend.flush();
+    expect(Restangular.stripRestangular(project)).toEqual(Restangular.stripRestangular(myProject));
     expect(Restangular.stripRestangular(teams)).toEqual(myTeams);
   });
 
