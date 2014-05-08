@@ -54,7 +54,7 @@ describe('Controller: ProjectEditCtrl', function () {
   
   //Initialize the controller and a mock scope
   beforeEach(inject(function($injector) {
-    myProject = {_id:{$oid:'123'}, name:'Project 1', route:'projects'};
+    myProject = {_id:{$oid:'123'}, name:'Project 1'};
     // set restangular route for the project
     myProject.route = 'projects';
     scope = $injector.get('$rootScope');
@@ -79,7 +79,7 @@ describe('Controller: ProjectEditCtrl', function () {
   });
 
   // tests
-  it ('should expect get api/projects', function () {
+  it ('should expect project object to be passed in and be restangular', function () {
     expect(Restangular.stripRestangular(scope.project)).toEqual(Restangular.stripRestangular(myProject));
   });
 
@@ -149,7 +149,9 @@ describe('Controller: ProjectShowCtrl', function () {
   
   //Initialize the controller and a mock scope
   beforeEach(inject(function($injector) {
-    myProject = {_id:{$oid:'123'}, name:'Project 1', route:'projects'};
+    myProject = {_id:{$oid:'123'}, name:'Project 1'};
+    // set restangular route for the project
+    myProject.route = 'projects';
     myTeams = [];
     scope = $injector.get('$rootScope');
     Restangular = $injector.get('Restangular');
