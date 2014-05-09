@@ -5,31 +5,41 @@
   </ul>
   <h3 class="text-muted">spar</h3>
 </div>
-
-<div class="row marketing">
-      <label>Name</label>
-      {{project.name}}
-
-      <label>Website</label>
-      {{project.site}}
-
-      <label>Description</label>
-      {{project.description}}
-    <a href="#/projects" class="btn">Cancel</a>
+<!-- back button -->
+<div class="row">
+  <a class="btn btn-info" href="#/projects" class="btn">Back</a>
 </div>
-
-<div class="row marketing">
-  <table>
+<!-- Project info -->
+<div class="row">
+  <h2>Project</h2>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Project</th>
+      <th>Description</th>
+      <th>Site</th>
+    </tr>
+    </thead>
+    <tbody>
+      <td>{{project.name}}</td>
+      <td>{{project.description}}</td>
+      <td>{{project.site}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Project Teams -->
+<div class="row">
+  <h2>Teams</h2>
+  <table class="table table-striped">
     <thead>
     <tr>
       <th>Name</th>
-      <th>People</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="team in teams" ng-show="team._id.$oid">
       <td>{{team.name}}</td>
-      <td>{{team.people}}</td>
     </tr>
     </tbody>
   </table>
