@@ -145,14 +145,16 @@ describe('Controller: ProjectShowCtrl', function () {
   // load the controller's module
   beforeEach(module('sparApp'));
 
-  var ProjectShowCtrl, scope, $controller, Restangular, myProject, myTeams, $httpBackend;
+  var ProjectShowCtrl, scope, $controller, $httpBackend, Restangular, myProject, myTeams, myTeamMembers;
   
   //Initialize the controller and a mock scope
   beforeEach(inject(function($injector) {
     myProject = {_id:{$oid:'123'}, name:'Project 1'};
     // set restangular route for the project
     myProject.route = 'projects';
-    myTeams = [];
+    myTeams = [{'_id': {'$oid': '536c5e7063b9bd7b726e580a'}, 'name': 'Core'}];
+    myTeamMembers = [{'team_id': '536c5e7063b9bd7b726e580a', '_id': {'$oid': '536c618e63b9bd7b726e5815'}, 'name': 'Tomas'}];
+    myTeams[0].members = myTeamMembers;
     scope = $injector.get('$rootScope');
     Restangular = $injector.get('Restangular');
     Restangular.setBaseUrl('api');
