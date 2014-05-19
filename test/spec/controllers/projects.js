@@ -154,13 +154,14 @@ describe('Controller: ProjectShowCtrl', function () {
     myProject.route = 'projects';
     myTeams = [{'_id': {'$oid': '536c5e7063b9bd7b726e580a'}, 'name': 'Core'}];
     myTeamMembers = [{'team_id': '536c5e7063b9bd7b726e580a', '_id': {'$oid': '536c618e63b9bd7b726e5815'}, 'name': 'Tomas'}];
-    myTeams[0].members = myTeamMembers;
+
     scope = $injector.get('$rootScope');
     Restangular = $injector.get('Restangular');
     Restangular.setBaseUrl('api');
     Restangular.setDefaultRequestParams({});
     $httpBackend = $injector.get('$httpBackend');
     $httpBackend.when('GET', 'api/projects/123/teams').respond(myTeams);
+    $httpBackend.when('GET', 'api/projects/123/teams/536c5e7063b9bd7b726e580a/members').respond(myTeamMembers);
     $controller = $injector.get('$controller');
     ProjectShowCtrl = $controller('ProjectShowCtrl', {
       $scope: scope,
@@ -176,13 +177,14 @@ describe('Controller: ProjectShowCtrl', function () {
   });
 
   // tests
-  it ('on load should expect get api/projects/123/teams', function () {
+  it ('on load should expect get api/projects/123/teams and for each team get members', function () {
     $httpBackend.expectGET('api/projects/123/teams');
+    $httpBackend.expectGET('api/projects/123/teams/536c5e7063b9bd7b726e580a/members');
     var teams = scope.teams;
-    var project = scope.project;
+    var members = scope.members;
     $httpBackend.flush();
-    expect(Restangular.stripRestangular(project)).toEqual(Restangular.stripRestangular(myProject));
     expect(Restangular.stripRestangular(teams)).toEqual(myTeams);
+    expect(Restangular.stripRestangular(members)).toEqual(myTeamMembers);
   });
 
 });

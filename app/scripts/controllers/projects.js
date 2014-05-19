@@ -35,6 +35,10 @@ angular.module('sparApp')
   // show project
   .controller('ProjectShowCtrl', function ($scope, $location, Projectservice, project, Restangular) {
     $scope.project = Restangular.copy(project);
-    $scope.teams = Projectservice.listTeams($scope.project).$object;
+    var teamsPromise = Projectservice.listTeams($scope.project);
+    var allMembers = Projectservice.listMembers(teamsPromise);
+    
+    $scope.teams = teamsPromise.$object;
+    $scope.members = allMembers;
   });
 
