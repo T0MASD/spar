@@ -34,7 +34,7 @@ angular.module('sparApp', [
         }
       })
       .when('/projects/new', {
-        templateUrl: 'views/projectedit.html',
+        templateUrl: 'views/projectnew.html',
         controller: 'ProjectCreateCtrl'
       })
       .otherwise({
