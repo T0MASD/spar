@@ -6,9 +6,14 @@
   <h3 class="text-muted">spar</h3>
 </div>
 
+<!-- back button -->
+<div class="row">
+  <a class="btn btn-info" href="#/projects" class="btn">Back</a>
+</div>
 
-
-<div class="row marketing">
+<!-- Project info -->
+<div class="row">
+  <h2>Project</h2>
   <form name="myForm">
     <div class="control-group" ng-class="{error: myForm.name.$invalid}">
       <label>Name</label>
@@ -30,12 +35,39 @@
     <textarea name="description" ng-model="project.description"></textarea>
 
     <br>
-    <a href="#/projects" class="btn">Cancel</a>
     <button ng-click="save()" ng-disabled="isClean() || myForm.$invalid"
             class="btn btn-primary">Save</button>
     <button ng-click="destroy()"
             ng-show="project._id" class="btn btn-danger">Delete</button>
   </form>
+</div>
+
+<!-- Project Teams -->
+<div class="row">
+  <h2>Teams</h2>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="team in teams" ng-show="team._id.$oid">
+      <td><input type="text" name="name" ng-model="team.name" required></td>
+      <td>
+          <button ng-click="saveTeam(team)" class="btn btn-success"> Save</button>
+          <button ng-click="deleteTeam(team)" class="btn btn-danger">Delete</button>
+      </td>
+    </tr>
+    <tr>
+      <td><input type="text" name="name" ng-model="newTeam.name" required></td>
+      <td>
+          <button ng-click="createTeam(newTeam)" class="btn btn-info"> Add</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
 
 <div class="footer">

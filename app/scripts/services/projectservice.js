@@ -14,6 +14,19 @@ angular.module('sparApp')
     createProject: function(project) {
       return Restangular.all('projects').post(project);
     },
+    // add new team to a project
+    createTeam: function(project, newTeam) {
+      newTeam.project_id = project._id.$oid;
+      return project.all('teams').post(newTeam);
+    },
+    // modify project team
+    saveTeam: function(team) {
+      return team.put();
+    },
+    // delete project team
+    deleteTeam: function(team) {
+      return team.remove();
+    },
     listTeams: function(project) {
       // get teams from /projects/536997c9f7890c40770656a6/teams
       return project.all('teams').getList();
