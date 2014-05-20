@@ -52,11 +52,10 @@
   <!-- end team -->
   <!-- start member loop -->
   <div class="row" ng-repeat="member in members | filter:{team_id:team._id.$oid}" ng-show="member._id.$oid">
-    <div class="col-md-3">
-      Member {{member.name}}
-    </div>
-    <div class="col-md-5">
+    <div class="col-md-8">
+      Member {{member.name}},
       Role:<input type="text" name="role" ng-model="member.role"></td>
+      Lead:<input type="checkbox" name="lead" ng-model="member.lead">
     </div>
     <div class="col-md-3">
       <button ng-click="saveMember(member)" class="btn btn-success"> Save</button>
@@ -66,12 +65,13 @@
   <!-- end member loop -->
   <!-- add member -->
   <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-11">
       Add new member:
       <input type="text" name="name" ng-model="newMember.name">
-      <input type="text" name="role" ng-model="newMember.role">
+      Role:<input type="text" name="role" ng-model="newMember.role">
+      Lead:<input type="checkbox" name="lead" ng-model="newMember.lead">
     </div>
-    <div class="col-md-3">
+    <div class="col-md-1">
       <button ng-click="addMember(team, newMember)" class="btn btn-info"> Add</button>
     </div>
   </div>
