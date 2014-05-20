@@ -12,8 +12,8 @@
 </div>
 
 <!-- Project info -->
+<h2>Project</h2>
 <div class="row">
-  <h2>Project</h2>
   <form name="myForm">
     <div class="control-group" ng-class="{error: myForm.name.$invalid}">
       <label>Name</label>
@@ -42,33 +42,48 @@
   </form>
 </div>
 
-<!-- Project Teams -->
-<div class="row">
-  <h2>Teams</h2>
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th>Name</th>
-      <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="team in teams" ng-show="team._id.$oid">
-      <td><input type="text" name="name" ng-model="team.name" required></td>
-      <td>
-          <button ng-click="saveTeam(team)" class="btn btn-success"> Save</button>
-          <button ng-click="deleteTeam(team)" class="btn btn-danger">Delete</button>
-      </td>
-    </tr>
-    <tr>
-      <td><input type="text" name="name" ng-model="newTeam.name" required></td>
-      <td>
-          <button ng-click="createTeam(newTeam)" class="btn btn-info"> Add</button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+<!-- project teams -->
+<h2>Teams</h2>
+<div class="row" ng-repeat="team in teams" ng-show="team._id.$oid">
+  <!-- start team -->
+    Team name:<input type="text" name="name" ng-model="team.name"></td>
+    <button ng-click="saveTeam(team)" class="btn btn-success"> Save</button>
+    <button ng-click="deleteTeam(team)" class="btn btn-danger">Delete</button>
+  <!-- end team -->
+  <!-- start member loop -->
+  <div class="row" ng-repeat="member in members | filter:{team_id:team._id.$oid}" ng-show="member._id.$oid">
+    <div class="col-md-3">
+      Member {{member.name}}
+    </div>
+    <div class="col-md-5">
+      Role:<input type="text" name="role" ng-model="member.role"></td>
+    </div>
+    <div class="col-md-3">
+      <button ng-click="saveMember(member)" class="btn btn-success"> Save</button>
+      <button ng-click="deleteMember(member)" class="btn btn-danger">Delete</button>
+    </div>
+  </div>
+  <!-- end member loop -->
+  <!-- add member -->
+  <div class="row">
+    <div class="col-md-9">
+      Add new member:
+      <input type="text" name="name" ng-model="newMember.name">
+      <input type="text" name="role" ng-model="newMember.role">
+    </div>
+    <div class="col-md-3">
+      <button ng-click="addMember(team, newMember)" class="btn btn-info"> Add</button>
+    </div>
+  </div>
+  <!-- end add member -->
 </div>
+<div class="row">
+    Create Team:<input type="text" name="name" ng-model="newTeam.name">
+    <button ng-click="createTeam(newTeam)" class="btn btn-info"> Add</button>
+</div>
+
+
+
 
 <div class="footer">
   <p>Spar</p>

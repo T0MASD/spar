@@ -9,7 +9,11 @@ angular.module('sparApp')
   // edit project
   .controller('ProjectEditCtrl', function ($scope, $location, Projectservice, project, Restangular) {
     $scope.project = Restangular.copy(project);
-    $scope.teams = Projectservice.listTeams($scope.project).$object;
+    var teamsPromise = Projectservice.listTeams($scope.project);
+    var allMembers = Projectservice.listMembers(teamsPromise);
+    $scope.teams = teamsPromise.$object;
+    $scope.members = allMembers;
+
     // modify project
     $scope.save = function() {
       $scope.project.put().then(function() {
@@ -42,6 +46,28 @@ angular.module('sparApp')
       Projectservice.deleteTeam(team).then(function() {
         // remove deleted team from $scope.teams
         $scope.teams.splice($scope.teams.indexOf(team), 1);
+      });
+    };
+    // add new member to a team
+    $scope.addMember = function(team, newMember) {
+      Projectservice.addMember(team, newMember).then(function(response) {
+        // push new member to members
+        $scope.members.push(response);
+        newMember.name = '';
+      });
+    };
+    // modify team member
+    $scope.saveMember = function(member) {
+      Projectservice.saveMember(member).then(function(response) {
+        // assign member from response
+        member = response;
+      });
+    };
+    // delete project team
+    $scope.deleteMember = function(member) {
+      Projectservice.deleteMember(member).then(function() {
+        // remove deleted team from $scope.teams
+        $scope.members.splice($scope.members.indexOf(member), 1);
       });
     };
   })

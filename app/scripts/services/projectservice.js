@@ -47,5 +47,18 @@ angular.module('sparApp')
       });
       return allmembers;
     },
+    // add new member to a team
+    addMember: function(team, newMember) {
+      newMember.team_id = team._id.$oid;
+      return team.all('members').post(newMember);
+    },
+    // modify team member
+    saveMember: function(member) {
+      return member.put();
+    },
+    // delete team member
+    deleteMember: function(member) {
+      return member.remove();
+    },
   };
 });

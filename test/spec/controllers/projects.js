@@ -50,12 +50,13 @@ describe('Controller: ProjectEditCtrl', function () {
   // load the controller's module
   beforeEach(module('sparApp'));
 
-  var ProjectEditCtrl, scope, $controller, Restangular, myProject, myTeams, $httpBackend;
+  var ProjectEditCtrl, scope, $controller, Restangular, myProject, myTeams, myTeamMembers, $httpBackend;
   
   //Initialize the controller and a mock scope
   beforeEach(inject(function($injector) {
     myProject = {_id:{$oid:'123'}, name:'Project 1'};
     myTeams = [{'_id': {'$oid': '536c5e7063b9bd7b726e580a'}, 'name': 'Core'}];
+    myTeamMembers = [{'team_id': '536c5e7063b9bd7b726e580a', '_id': {'$oid': '536c618e63b9bd7b726e5815'}, 'name': 'Tomas'}];
     // set restangular route for the project
     myProject.route = 'projects';
     scope = $injector.get('$rootScope');
@@ -66,6 +67,7 @@ describe('Controller: ProjectEditCtrl', function () {
     $httpBackend.when('PUT', 'api/projects/123').respond(scope.project);
     $httpBackend.when('DELETE', 'api/projects/123').respond(scope.project);
     $httpBackend.when('GET', 'api/projects/123/teams').respond(myTeams);
+    $httpBackend.when('GET', 'api/projects/123/teams/536c5e7063b9bd7b726e580a/members').respond(myTeamMembers);
     $controller = $injector.get('$controller');
     ProjectEditCtrl = $controller('ProjectEditCtrl', {
       $scope: scope,
@@ -83,6 +85,7 @@ describe('Controller: ProjectEditCtrl', function () {
   // tests
   it ('onload should expect project object to be passed in and be restangular, also expect call to get teams', function () {
     $httpBackend.expectGET('api/projects/123/teams');
+    $httpBackend.expectGET('api/projects/123/teams/536c5e7063b9bd7b726e580a/members');
     $httpBackend.flush();
     expect(Restangular.stripRestangular(scope.project)).toEqual(Restangular.stripRestangular(myProject));
   });
@@ -102,6 +105,7 @@ describe('Controller: ProjectEditCtrl', function () {
   });
 
   // TODO createTeam, saveTeam, deleteTeam tests
+  // TODO addMember, saveMember, deleteMember tests
 
 });
 

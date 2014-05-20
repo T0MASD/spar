@@ -42,4 +42,17 @@ describe('Service: Projectservice', function () {
     expect(!!Projectservice.createTeam).toBe(true);
   });
 
+  it('Projectservice.addMember() is defined', function () {
+    expect(!!Projectservice.addMember).toBe(true);
+  });
+
+  it('Projectservice.saveMember() is defined', function () {
+    expect(!!Projectservice.saveMember).toBe(true);
+  });
+
+  it('Projectservice.deleteMember() is defined', function () {
+    expect(!!Projectservice.deleteMember).toBe(true);
+  });
+
+
 });
