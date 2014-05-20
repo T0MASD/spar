@@ -3,7 +3,8 @@
 angular.module('sparApp', [
   'ngRoute',
   'restangular',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'toaster'
 ])
   .config(function ($routeProvider, RestangularProvider) {
     $routeProvider
