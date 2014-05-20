@@ -43,8 +43,7 @@
       <td>{{team.name}}</td>
       <td>
         <pre>
-          <p ng-repeat="member in members | filter:{team_id:team._id.$oid}" ng-show="member._id.$oid"><i class="glyphicon glyphicon-bullhorn" ng-show="member.lead"></i> {{member.name}} - {{member.role}}</p>
-
+          <p ng-repeat="member in members | filter:{team_id:team._id.$oid}" ng-show="member._id.$oid">{{member.name}}</p>
         </pre>
       </td>
     </tr>
