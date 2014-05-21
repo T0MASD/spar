@@ -7,7 +7,7 @@ angular.module('sparApp')
     $scope.projects = projects;
   })
   // edit project
-  .controller('ProjectEditCtrl', function ($scope, $location, Projectservice, project, Restangular) {
+  .controller('ProjectEditCtrl', ['$scope', '$location', 'Projectservice', 'project', 'Restangular', function($scope, $location, Projectservice, project, Restangular) {
     $scope.project = Restangular.copy(project);
     var teamsPromise = Projectservice.listTeams($scope.project);
     var allMembers = Projectservice.listMembers(teamsPromise);
@@ -70,7 +70,7 @@ angular.module('sparApp')
         $scope.members.splice($scope.members.indexOf(member), 1);
       });
     };
-  })
+  }])
   // create project
   .controller('ProjectCreateCtrl', function ($scope, $location, Projectservice) {
     $scope.save = function() {
@@ -81,11 +81,11 @@ angular.module('sparApp')
     };
   })
   // show project
-  .controller('ProjectShowCtrl', function ($scope, $location, Projectservice, project, Restangular) {
+  .controller('ProjectShowCtrl', ['$scope', '$location', 'Projectservice', 'project', 'Restangular', function ($scope, $location, Projectservice, project, Restangular) {
     $scope.project = Restangular.copy(project);
     var teamsPromise = Projectservice.listTeams($scope.project);
     var allMembers = Projectservice.listMembers(teamsPromise);
     $scope.teams = teamsPromise.$object;
     $scope.members = allMembers;
-  });
+  }]);
 

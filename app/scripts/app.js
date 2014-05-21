@@ -20,18 +20,18 @@ angular.module('sparApp', [
         templateUrl: 'views/projectedit.html',
         controller: 'ProjectEditCtrl',
         resolve: {
-          project: function(Projectservice, $route){
+          project: ['Projectservice', '$route', function(Projectservice, $route){
             return Projectservice.getProject($route.current.params.projectId);
-          }
+          }]
         }
       })
       .when('/projects/show/:projectId', {
         templateUrl: 'views/projectshow.html',
         controller: 'ProjectShowCtrl',
         resolve: {
-          project: function(Projectservice, $route){
+          project: ['Projectservice', '$route', function(Projectservice, $route){
             return Projectservice.getProject($route.current.params.projectId);
-          }
+          }]
         }
       })
       .when('/projects/new', {
