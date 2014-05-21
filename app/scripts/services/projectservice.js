@@ -16,7 +16,7 @@ angular.module('sparApp')
     },
     // add new team to a project
     createTeam: function(project, newTeam) {
-      newTeam.project_id = project._id.$oid;
+      newTeam.projectId = project._id.$oid;
       return project.all('teams').post(newTeam);
     },
     // modify project team
@@ -49,7 +49,7 @@ angular.module('sparApp')
     },
     // add new member to a team
     addMember: function(team, newMember) {
-      newMember.team_id = team._id.$oid;
+      newMember.teamId = team._id.$oid;
       return team.all('members').post(newMember);
     },
     // modify team member

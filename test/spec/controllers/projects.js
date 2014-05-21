@@ -56,7 +56,7 @@ describe('Controller: ProjectEditCtrl', function () {
   beforeEach(inject(function($injector) {
     myProject = {_id:{$oid:'123'}, name:'Project 1'};
     myTeams = [{'_id': {'$oid': '536c5e7063b9bd7b726e580a'}, 'name': 'Core'}];
-    myTeamMembers = [{'team_id': '536c5e7063b9bd7b726e580a', '_id': {'$oid': '536c618e63b9bd7b726e5815'}, 'name': 'Tomas'}];
+    myTeamMembers = [{'teamId': '536c5e7063b9bd7b726e580a', '_id': {'$oid': '536c618e63b9bd7b726e5815'}, 'name': 'Tomas'}];
     // set restangular route for the project
     myProject.route = 'projects';
     scope = $injector.get('$rootScope');
@@ -163,7 +163,7 @@ describe('Controller: ProjectShowCtrl', function () {
     // set restangular route for the project
     myProject.route = 'projects';
     myTeams = [{'_id': {'$oid': '536c5e7063b9bd7b726e580a'}, 'name': 'Core'}];
-    myTeamMembers = [{'team_id': '536c5e7063b9bd7b726e580a', '_id': {'$oid': '536c618e63b9bd7b726e5815'}, 'name': 'Tomas'}];
+    myTeamMembers = [{'teamId': '536c5e7063b9bd7b726e580a', '_id': {'$oid': '536c618e63b9bd7b726e5815'}, 'name': 'Tomas'}];
 
     scope = $injector.get('$rootScope');
     Restangular = $injector.get('Restangular');
