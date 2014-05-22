@@ -43,22 +43,25 @@ angular.module('sparApp', [
       });
 
     // restangular config
-    //var baseUrl = 'https://api.mongolab.com/api/1/databases/spar/collections';
-    var baseUrl = 'http://0.0.0.0:6543';
-    RestangularProvider.setBaseUrl(baseUrl);
-    // var key = '1gBZiz7sjognilZY3t2MreqUHUCO4Qid';
-    // RestangularProvider.setDefaultRequestParams({ apiKey: key });
-
-    RestangularProvider.setRestangularFields({
-      id: '_id.$oid'
-    });
-    
-    RestangularProvider.setRequestInterceptor(function(elem, operation) {
+    RestangularProvider.setBaseUrl('http://0.0.0.0:6543');
+    RestangularProvider.setRestangularFields({id: '_id.$oid'});
+  }) // end config
+  .run(function (Restangular, toaster) {
+    // add request interceptor
+    Restangular.addRequestInterceptor(function(elem, operation) {
       if (operation === 'put') {
         elem._id = undefined;
         return elem;
       }
       return elem;
     });
+    // add response interceptor pending on https://github.com/mgonto/restangular/issues/716
+    // Restangular.setFullResponse(true);
+    // Restangular.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
+    //   var newResponse;
+    //   newResponse = response.data;
+    //   return newResponse;
+    // });
+  }); // end run
+  
 
-  });
