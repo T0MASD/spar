@@ -9,7 +9,8 @@
     "restangular": "latest",
     "angular-bootstrap": "latest",
     "bootstrap-sass-no-js": "latest",
-    "AngularJS-Toaster": "latest"
+    "AngularJS-Toaster": "latest",
+    "angular-base64": "latest"
   },
   "devDependencies": {
     "angular-mocks": "1.2.16",

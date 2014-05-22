@@ -4,7 +4,8 @@ angular.module('sparApp', [
   'ngRoute',
   'restangular',
   'ui.bootstrap',
-  'toaster'
+  'toaster',
+  'base64'
 ])
   .config(function ($routeProvider, RestangularProvider) {
     $routeProvider
@@ -37,6 +38,10 @@ angular.module('sparApp', [
       .when('/projects/new', {
         templateUrl: 'views/projectnew.html',
         controller: 'ProjectCreateCtrl'
+      })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
       })
       .otherwise({
         redirectTo: '/'

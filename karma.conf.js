@@ -19,6 +19,7 @@ module.exports = function(config) {
       'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'app/bower_components/angular-animate/angular-animate.js',
       'app/bower_components/AngularJS-Toaster/toaster.js',
+      'app/bower_components/angular-base64/angular-base64.js',
       'app/scripts/*.js',
       'app/scripts/**/*.js',
       'test/mock/**/*.js',
