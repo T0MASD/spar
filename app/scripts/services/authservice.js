@@ -6,6 +6,7 @@ angular.module('sparApp')
       login: function (username, password) {
         var enc = $base64.encode(username + ':' + password);
         Restangular.setDefaultHeaders({'Authorization': 'Basic ' + enc });
+        Restangular.setDefaultHttpFields({'withCredentials':'true'});
         return  Restangular.one('login').get();
       },
       logout: function () {
