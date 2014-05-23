@@ -6,15 +6,14 @@ angular.module('sparApp')
     $scope.login = function() {
       Authservice.login($scope.credentials.username, $scope.credentials.password).then(function(response) {
         $scope.result = response;
-        console.log(response);
-        //$location.path('/projects');
+        $location.path('/projects');
       });
     };
     // logout button
     $scope.logout = function() {
       Authservice.logout().then(function(response) {
         $scope.result = response;
-        $location.path('/projects');
+        $location.path('/home');
       });
     };
   });

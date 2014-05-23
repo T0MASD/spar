@@ -60,6 +60,23 @@ angular.module('sparApp', [
       }
       return elem;
     });
+    // add error interceptor
+    Restangular.setErrorInterceptor(function(resp) {
+      var status, title, message;
+      if (resp.status === 0){
+        status = 'error';
+        title = 'Server Error';
+        message = 'Unable to reach the server';
+      }
+      else{
+        status = resp.data.toasterStatus || 'error';
+        title = resp.data.toasterTitle || 'Unknown Error';
+        message = resp.data.toasterMessage || 'Server did not respond with an error message';
+      }
+      toaster.pop(status, title, message);
+      return false; // stop the promise chain
+    });
+
     // add response interceptor pending on https://github.com/mgonto/restangular/issues/716
     // Restangular.setFullResponse(true);
     // Restangular.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
