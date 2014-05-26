@@ -61,8 +61,12 @@ angular.module('sparApp')
       return member.remove();
     },
     // search member roles used in roles typehead
-    searchMemberRoles: function(role){
-      return Restangular.all('search').getList({'resource': 'memberRoles', 'query':role});
+    searchMemberRoles: function(query){
+      return Restangular.all('search').getList({'resource': 'memberRoles', 'query':query});
+    },
+    // search people used in name typehead
+    searchPeople: function(query){
+      return Restangular.all('search').getList({'resource': 'people', 'query':query});
     },
   };
 });

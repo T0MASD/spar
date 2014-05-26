@@ -76,6 +76,12 @@ angular.module('sparApp')
         return limitToFilter(response, 10);
       });
     };
+    $scope.searchPeople = function(query) {
+      return Projectservice.searchPeople(query).then(function(response){
+        return limitToFilter(response, 10);
+      });
+    };
+
     // end edit project
   }])
   // create project

@@ -53,7 +53,7 @@
   <!-- start member loop -->
   <div class="row" ng-repeat="member in members | filter:{teamId:team._id.$oid}" ng-show="member._id.$oid">
     <div class="col-md-3">
-      Member {{member.name}}
+      Member: {{member.name}}
     </div>
     <div class="col-md-5">
       Role:<input type="text" name="role" ng-model="member.role" typeahead="suggestion for suggestion in memberRoles($viewValue)">
@@ -68,8 +68,10 @@
   <div class="row">
     <div class="col-md-9">
       Add new member:
-      <input type="text" name="name" ng-model="newMember.name">
-      <input type="text" name="role" ng-model="newMember.role" typeahead="suggestion for suggestion in memberRoles($viewValue)">
+      <input autocomplete="off" ng-model="newMember" type="text" placeholder="Name..." ng-init="newMember.name=''"
+      typeahead="item as item.name for item in searchPeople($viewValue)" />
+      <input autocomplete="off" ng-model="newMember.role" type="text" placeholder="Role..."
+      typeahead="suggestion for suggestion in memberRoles($viewValue)">
     </div>
     <div class="col-md-3">
       <button ng-click="addMember(team, newMember)" class="btn btn-info"> Add</button>
