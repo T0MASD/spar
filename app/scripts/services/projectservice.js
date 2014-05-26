@@ -60,5 +60,9 @@ angular.module('sparApp')
     deleteMember: function(member) {
       return member.remove();
     },
+    // search member roles used in roles typehead
+    searchMemberRoles: function(role){
+      return Restangular.all('search').getList({'resource': 'memberRoles', 'query':role});
+    },
   };
 });
