@@ -7,7 +7,7 @@ angular.module('sparApp')
     $scope.projects = projects;
   })
   // edit project
-  .controller('ProjectEditCtrl', ['$scope', '$location', 'Projectservice', 'project', 'Restangular', '$http', 'limitToFilter', function($scope, $location, Projectservice, project, Restangular, $http, limitToFilter) {
+  .controller('ProjectEditCtrl', ['$scope', '$location', 'Projectservice', 'project', 'Restangular', '$http', 'limitToFilter', 'toaster', function($scope, $location, Projectservice, project, Restangular, $http, limitToFilter, toaster) {
     $scope.project = Restangular.copy(project);
     var teamsPromise = Projectservice.listTeams($scope.project);
     var allMembers = Projectservice.listMembers(teamsPromise);
@@ -50,14 +50,20 @@ angular.module('sparApp')
     };
     // add new member to a team
     $scope.addMember = function(team, newMember) {
-      Projectservice.addMember(team, newMember).then(function(response) {
-        // push new member to members
-        $scope.members.push(response);
-        // clear newMember, .person is undefined in addMember service
-        newMember.name = undefined;
-        newMember.personId = undefined;
-        newMember.role = undefined;
-      });
+      // check if member was selected from the typeahead
+      if (newMember.person.personId === undefined){
+        toaster.pop('warning', 'Warning', 'Please select person from the list');
+      } else {
+        Projectservice.addMember(team, newMember).then(function(response) {
+          // push new member to members
+          $scope.members.push(response);
+          // clear newMember, .person is undefined in addMember service
+          newMember.teamId = undefined;
+          newMember.personId = undefined;
+          newMember.role = undefined;
+          newMember.name = undefined;
+        });
+      }
     };
     // modify team member
     $scope.saveMember = function(member) {
