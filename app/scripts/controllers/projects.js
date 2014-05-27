@@ -7,7 +7,7 @@ angular.module('sparApp')
     $scope.projects = projects;
   })
   // edit project
-  .controller('ProjectEditCtrl', ['$scope', '$location', 'Projectservice', 'project', 'Restangular', '$http', 'limitToFilter', 'toaster', function($scope, $location, Projectservice, project, Restangular, $http, limitToFilter, toaster) {
+  .controller('ProjectEditCtrl', ['$scope', '$location', 'Projectservice', 'project', 'Restangular', '$http', 'limitToFilter', 'toaster', '_', function($scope, $location, Projectservice, project, Restangular, $http, limitToFilter, toaster, _) {
     $scope.project = Restangular.copy(project);
     var teamsPromise = Projectservice.listTeams($scope.project);
     var allMembers = Projectservice.listMembers(teamsPromise);
@@ -80,16 +80,19 @@ angular.module('sparApp')
       });
     };
     // roles typehead
-    $scope.searchMemberRoles = function(role) {
+    var searchMemberRoles = function(role) {
       return Projectservice.searchMemberRoles(role).then(function(response){
         return limitToFilter(response, 10);
       });
     };
-    $scope.searchPeople = function(query) {
+    $scope.searchMemberRoles = _.throttle(searchMemberRoles, 100);
+    // team member typehead    
+    var searchPeople = function(query) {
       return Projectservice.searchPeople(query).then(function(response){
         return limitToFilter(response, 10);
       });
     };
+    $scope.searchPeople = _.throttle(searchPeople, 100);
 
     // end edit project
   }])

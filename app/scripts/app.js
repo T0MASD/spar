@@ -7,6 +7,9 @@ angular.module('sparApp', [
   'toaster',
   'base64'
 ])
+  // add lodash
+  .constant('_', window._)
+  // start config
   .config(function ($routeProvider, RestangularProvider) {
     $routeProvider
       .when('/', {
