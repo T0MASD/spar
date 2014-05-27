@@ -49,6 +49,10 @@ angular.module('sparApp')
     },
     // add new member to a team
     addMember: function(team, newMember) {
+      // newMember.person contains .name and .id
+      newMember.name = newMember.person.name;
+      newMember.personId = newMember.person.personId;
+      newMember.person = undefined;
       newMember.teamId = team._id.$oid;
       return team.all('members').post(newMember);
     },

@@ -53,7 +53,10 @@ angular.module('sparApp')
       Projectservice.addMember(team, newMember).then(function(response) {
         // push new member to members
         $scope.members.push(response);
-        newMember.name = '';
+        // clear newMember, .person is undefined in addMember service
+        newMember.name = undefined;
+        newMember.personId = undefined;
+        newMember.role = undefined;
       });
     };
     // modify team member
@@ -71,7 +74,7 @@ angular.module('sparApp')
       });
     };
     // roles typehead
-    $scope.memberRoles = function(role) {
+    $scope.searchMemberRoles = function(role) {
       return Projectservice.searchMemberRoles(role).then(function(response){
         return limitToFilter(response, 10);
       });
