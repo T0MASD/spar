@@ -2,10 +2,10 @@
 
 angular.module('sparApp')
   // list projects
-  .controller('ProjectsCtrl', function ($scope, Projectservice) {
+  .controller('ProjectsCtrl', ['$scope', 'Projectservice', function ($scope, Projectservice) {
     var projects = Projectservice.getProjects().$object;
     $scope.projects = projects;
-  })
+  }])
   // edit project
   .controller('ProjectEditCtrl', ['$scope', '$location', 'Projectservice', 'project', 'Restangular', '$http', 'limitToFilter', 'toaster', '_', function($scope, $location, Projectservice, project, Restangular, $http, limitToFilter, toaster, _) {
     $scope.project = Restangular.copy(project);
@@ -97,14 +97,14 @@ angular.module('sparApp')
     // end edit project
   }])
   // create project
-  .controller('ProjectCreateCtrl', function ($scope, $location, Projectservice) {
+  .controller('ProjectCreateCtrl', ['$scope', '$location', 'Projectservice', function ($scope, $location, Projectservice) {
     $scope.save = function() {
       Projectservice.createProject($scope.project).then(function(project) {
         $scope.createdProject = project;
         $location.path('/projects');
       });
     };
-  })
+  }])
   // show project
   .controller('ProjectShowCtrl', ['$scope', '$location', 'Projectservice', 'project', 'Restangular', function ($scope, $location, Projectservice, project, Restangular) {
     $scope.project = Restangular.copy(project);
