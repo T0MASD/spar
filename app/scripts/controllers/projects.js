@@ -88,9 +88,13 @@ angular.module('sparApp')
     $scope.searchMemberRoles = _.throttle(searchMemberRoles, 100);
     // team member typehead    
     var searchPeople = function(query) {
-      return Projectservice.searchPeople(query).then(function(response){
-        return limitToFilter(response, 10);
-      });
+      if (query.length > 2) {
+        return Projectservice.searchPeople(query).then(function(response){
+          return limitToFilter(response, 10);
+        });
+      } else {
+        return [];
+      }
     };
     $scope.searchPeople = _.throttle(searchPeople, 100);
 
