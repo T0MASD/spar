@@ -69,7 +69,8 @@ angular.module('sparApp')
     $scope.saveMember = function(member) {
       Projectservice.saveMember(member).then(function(response) {
         // assign member from response
-        member = response;
+        member.role = response.role;
+        member.allocation = response.allocation;
       });
     };
     // delete project team

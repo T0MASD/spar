@@ -56,8 +56,11 @@
     <div class="col-md-3">
       Member: {{member.name}}
     </div>
-    <div class="col-md-5">
+    <div class="col-md-4">
       Role:<input type="text" name="role" ng-model="member.role" typeahead="suggestion for suggestion in searchMemberRoles($viewValue)">
+    </div>
+    <div class="col-md-2">
+      {{member.allocation}}<input type="range" step="10" max="100" min="0" ng-model="member.allocation">
     </div>
     <div class="col-md-3">
       <button ng-click="saveMember(member)" class="btn btn-success"> Save</button>
@@ -72,7 +75,7 @@
       <input autocomplete="off" ng-model="newMember.person" type="text" placeholder="Name..."
       typeahead="person as person.name for person in searchPeople($viewValue)"/>
       <input autocomplete="off" ng-model="newMember.role" type="text" placeholder="Role..."
-      typeahead="suggestion for suggestion in searchMemberRoles($viewValue)"/Z>
+      typeahead="suggestion for suggestion in searchMemberRoles($viewValue)"/>
     </div>
     <div class="col-md-3">
       <button ng-click="addMember(team, newMember)" class="btn btn-info"> Add</button>
