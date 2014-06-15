@@ -39,6 +39,7 @@ angular.module('sparApp')
       Projectservice.saveTeam(team).then(function(response) {
         // assign team name from response
         team.name = response.name;
+        team.size = response.size;
       });
     };
     // delete project team

@@ -47,20 +47,29 @@
 <h2>Teams</h2>
 <div class="row" ng-repeat="team in teams" ng-show="team._id.$oid">
   <!-- start team -->
-    Team name:<input type="text" name="name" ng-model="team.name">
-    <button ng-click="saveTeam(team)" class="btn btn-success"> Save</button>
-    <button ng-click="deleteTeam(team)" class="btn btn-danger">Delete</button>
+  <div class="row">
+    <div class="col-md-6">
+      <span class="glyphicon glyphicon-tower"></span> Team name:<input type="text" name="name" ng-model="team.name">
+    </div>  
+    <div class="col-md-3">
+      Team Size: {{team.size}}<input type="range" step="1" min="0" ng-model="team.size">
+    </div>  
+    <div class="col-md-3">
+      <button ng-click="saveTeam(team)" class="btn btn-success"> Save</button>
+      <button ng-click="deleteTeam(team)" class="btn btn-danger">Delete</button>
+    </div>
+  </div>
   <!-- end team -->
   <!-- start member loop -->
   <div class="row" ng-repeat="member in members | filter:{teamId:team._id.$oid}" ng-show="member._id.$oid">
     <div class="col-md-3">
-      Member: {{member.name}}
+      <span class="glyphicon glyphicon-user"></span> {{member.name}}
     </div>
     <div class="col-md-4">
       Role:<input type="text" name="role" ng-model="member.role" typeahead="suggestion for suggestion in searchMemberRoles($viewValue)">
     </div>
     <div class="col-md-2">
-      {{member.allocation}}<input type="range" step="10" max="100" min="0" ng-model="member.allocation">
+      Allocated {{member.allocation}}%<input type="range" step="10" max="100" min="0" ng-model="member.allocation">
     </div>
     <div class="col-md-3">
       <button ng-click="saveMember(member)" class="btn btn-success"> Save</button>
@@ -82,6 +91,7 @@
     </div>
   </div>
   <!-- end add member -->
+  <hr>
 </div>
 <div class="row">
     Create Team:<input type="text" name="name" ng-model="newTeam.name">
