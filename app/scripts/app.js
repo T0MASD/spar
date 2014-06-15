@@ -80,13 +80,29 @@ angular.module('sparApp', [
       return false; // stop the promise chain
     });
 
-    // add response interceptor pending on https://github.com/mgonto/restangular/issues/716
-    // Restangular.setFullResponse(true);
-    // Restangular.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
-    //   var newResponse;
-    //   newResponse = response.data;
-    //   return newResponse;
-    // });
+    
+    // Restangular.setFullResponse(true); pending on https://github.com/mgonto/restangular/issues/716
+    // Not sure if that's ^ needed
+    // add response interceptor 
+    Restangular.addResponseInterceptor(function(data, operation, what, url, response) {
+      if (response.headers('X-Toaster-Notification')){
+        var toasterMessages = response.headers('X-Toaster-Notification');
+        var toasterMessagesArr = toasterMessages.split('?');
+        for (var i = 0; i < toasterMessagesArr.length; i++) {
+          var toasterMessage = toasterMessagesArr[i];
+          if (toasterMessage.split('|').length === 3){
+            var status = toasterMessage.split('|')[0];
+            var title = toasterMessage.split('|')[1];
+            var message = toasterMessage.split('|')[2];
+            toaster.pop(status, title, message);
+          }
+          else{
+            toaster.pop('error', 'Got malformed message', toasterMessage);
+          }
+        }
+      }
+      return data;
+    });
   }); // end run
   
 
