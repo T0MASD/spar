@@ -37,6 +37,7 @@
     <tr>
       <th>Name</th>
       <th>Members</th>
+      <th>Size/Allocation</th>
     </tr>
     </thead>
     <tbody>
@@ -46,6 +47,15 @@
         <pre>
           <p ng-repeat="member in members[team._id.$oid]" ng-show="member._id.$oid">{{member.name}}</p>
         </pre>
+      </td>
+      <td>
+          <progressbar 
+            animate="true"
+            value="calculateAllocations(team, members[team._id.$oid])"
+            type="{{getBarType(calculateAllocations(team, members[team._id.$oid]))}}">
+            <b>{{calculateAllocations(team, members[team._id.$oid])}}%</b>
+          </progressbar>        
+        {{}}
       </td>
     </tr>
     </tbody>

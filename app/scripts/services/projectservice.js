@@ -71,5 +71,15 @@ angular.module('sparApp')
     searchPeople: function(query){
       return Restangular.all('search').getList({'resource': 'people', 'query':query});
     },
+    // calculate team allocations vs size
+    calculateAllocations: function(team, teamMembers){
+      var allocations = 0;
+      for (var i = 0; i < teamMembers.length; i++) {
+        var teamMember = teamMembers[i];
+        allocations += parseInt(teamMember.allocation);
+      }
+      var barValue = allocations/team.size;
+      return Math.round(barValue * 100) / 100;
+    },
   };
 });

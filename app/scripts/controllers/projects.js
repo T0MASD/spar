@@ -118,5 +118,17 @@ angular.module('sparApp')
     var allMembers = Projectservice.listMembers(teamsPromise);
     $scope.teams = teamsPromise.$object;
     $scope.members = allMembers;
+
+    // get team usage
+    $scope.calculateAllocations = function(team, teamMembers) {
+      return Projectservice.calculateAllocations(team, teamMembers);
+    };
+    // calculate bar type based on %
+    $scope.getBarType = function(value){
+      var type;
+      if (value < 25) { type = 'danger'; } else if (value < 50) { type = 'warning'; } else if (value < 75) { type = 'info'; } else { type = 'success'; }
+      return type;
+    };
+
   }]);
 
