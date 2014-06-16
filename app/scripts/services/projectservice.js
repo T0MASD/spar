@@ -33,16 +33,15 @@ angular.module('sparApp')
     },
     listMembers: function(teamsPromise) {
       // get members from teams /projects/536997c9f7890c40770656a6/teams/ID's/members
-      var allmembers = [];
-
-      var appendMembers = function(members){
-        allmembers.push.apply(allmembers, members);
-      };
+      var allmembers = {};
 
       teamsPromise.then(function(teams){
         for (var i = 0; i < teams.length; i++) {
           var team = teams[i];
-          team.all('members').getList().then(appendMembers);
+          var teamMembers = team.all('members').getList().$object;
+          var teamId = team._id.$oid;
+          // assign teamId key teamMembers array 
+          allmembers[teamId] = teamMembers;
         }
       });
       return allmembers;

@@ -61,7 +61,7 @@
   </div>
   <!-- end team -->
   <!-- start member loop -->
-  <div class="row" ng-repeat="member in members | filter:{teamId:team._id.$oid}" ng-show="member._id.$oid">
+  <div class="row" ng-repeat="member in members[team._id.$oid]" ng-show="member._id.$oid">
     <div class="col-md-3">
       <span class="glyphicon glyphicon-user"></span> {{member.name}}
     </div>

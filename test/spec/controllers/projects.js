@@ -194,7 +194,7 @@ describe('Controller: ProjectShowCtrl', function () {
     var members = scope.members;
     $httpBackend.flush();
     expect(Restangular.stripRestangular(teams)).toEqual(myTeams);
-    expect(Restangular.stripRestangular(members)).toEqual(myTeamMembers);
+    expect(Restangular.stripRestangular(members['536c5e7063b9bd7b726e580a'])).toEqual(myTeamMembers);
   });
 
 });
