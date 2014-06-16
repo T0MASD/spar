@@ -45,7 +45,7 @@
       <td>{{team.name}}</td>
       <td>
         <pre>
-          <p ng-repeat="member in members[team._id.$oid]" ng-show="member._id.$oid">{{member.name}}</p>
+          <p ng-repeat="member in members[team._id.$oid]" ng-show="member._id.$oid">{{member.name}} {{member.allocation}}% {{member.role}}</p>
         </pre>
       </td>
       <td>
