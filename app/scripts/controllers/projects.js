@@ -57,7 +57,7 @@ angular.module('sparApp')
       } else {
         Projectservice.addMember(team, newMember).then(function(response) {
           // push new member to members
-          $scope.members.push(response);
+          $scope.members[team._id.$oid].push(response);
           // clear newMember, .person is undefined in addMember service
           newMember.teamId = undefined;
           newMember.personId = undefined;
@@ -75,10 +75,10 @@ angular.module('sparApp')
       });
     };
     // delete project team
-    $scope.deleteMember = function(member) {
+    $scope.deleteMember = function(team, member) {
       Projectservice.deleteMember(member).then(function() {
         // remove deleted team from $scope.teams
-        $scope.members.splice($scope.members.indexOf(member), 1);
+        $scope.members[team._id.$oid].splice($scope.members[team._id.$oid].indexOf(member), 1);
       });
     };
     // roles typehead
