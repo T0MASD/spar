@@ -76,7 +76,7 @@ angular.module('sparApp')
       var allocations = 0;
       for (var i = 0; i < teamMembers.length; i++) {
         var teamMember = teamMembers[i];
-        allocations += parseInt(teamMember.allocation);
+        allocations += parseInt(teamMember.allocation) || 0;
       }
       var barValue = allocations/team.size;
       return Math.round(barValue * 100) / 100;
